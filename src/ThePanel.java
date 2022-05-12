@@ -12,7 +12,7 @@ public class ThePanel extends JPanel implements Runnable{
     static final Dimension SCREEN_SIZE = new Dimension(GAME_WIDTH, GAME_HEIGHT); //Screen Size; Width, Height
     static final int BALL_DIAMETER = 20; //Ball Diameter
     static final int PADDLE_WIDTH = 25; //Paddle Width
-    static final int PADDLE_HEIGHT = 25; //Paddle Height
+    static final int PADDLE_HEIGHT = 90; //Paddle Height
 
     //Declare instances
     Thread gameThread;
@@ -38,7 +38,8 @@ public class ThePanel extends JPanel implements Runnable{
 
     }
     public void newBall() {
-
+        //random = new Random();
+        ball = new TheBall((GAME_WIDTH/2) - (BALL_DIAMETER/2), (GAME_HEIGHT/2) - (BALL_DIAMETER/2), BALL_DIAMETER, BALL_DIAMETER);
     }
     public void newPaddles(){
         paddle1 = new ThePaddle(0,(GAME_HEIGHT/2) -(PADDLE_WIDTH/2),PADDLE_WIDTH,PADDLE_HEIGHT,1);
@@ -55,12 +56,30 @@ public class ThePanel extends JPanel implements Runnable{
 
     }
     public void draw (Graphics g) {
-
+        paddle1.draw(g); //Draw-up Player1 Paddle; Blue
+        paddle2.draw(g); //Draw-up Player2 Paddle; Red
     }
     public void move() {
+        // Move Paddle more smoothly across screen
+        paddle1.move();
+        paddle2.move();
 
+        // Move Ball more smoothly across screen
+        //ball.move();
     }
     public void checkCollision() {
+        //Stop paddles when touches border of Application on TOP
+        if (paddle1.y <= 0)
+            paddle1.y = 0;
+        //Stop paddles when touches border of Application on BOTTOM
+        if (paddle1.y >= (GAME_HEIGHT-PADDLE_HEIGHT))
+            paddle1.y = GAME_HEIGHT-PADDLE_HEIGHT;
+
+        //Stop paddles when touches border of Application for Player 2
+        if (paddle2.y <= 0)
+            paddle2.y = 0;
+        if (paddle2.y >= (GAME_HEIGHT-PADDLE_HEIGHT))
+            paddle2.y = GAME_HEIGHT-PADDLE_HEIGHT;
 
     }
     public void run() {
@@ -85,12 +104,17 @@ public class ThePanel extends JPanel implements Runnable{
         }
 
     }
+    // Class KeyEvent
+    // Action Listener for when a key is pressed and released
     public class Ltener extends KeyAdapter { //Action Listener
         public void keyPressed(KeyEvent e) {
+            paddle1.keyPressed(e);
+            paddle2.keyPressed(e);
 
         }
         public void keyReleased(KeyEvent e) {
-
+            paddle1.keyReleased(e);
+            paddle2.keyReleased(e);
         }
     }
 }

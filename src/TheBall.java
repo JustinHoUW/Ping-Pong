@@ -9,8 +9,15 @@ public class TheBall extends Rectangle{
     int xVelocity; //How fast the ball moves in the x-axis
     int yVelocity; //How fast the ball moves in the y-axis
 
-    TheBall(){ //Constructor
+    TheBall(int x, int y, int width, int height){ //Constructor
+        super(x, y, width, height);
+        random = new Random();
+        int randomXDirection = random.nextInt(2);
+        if (randomXDirection == 0) {
+            randomXDirection--; //-1
+            setXDir(randomXDirection);
 
+        }
     }
     public void setXDir (int randomXDir) { //Ball potentially moves in any x-direction
 
