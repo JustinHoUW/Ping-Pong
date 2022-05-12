@@ -77,7 +77,7 @@ public class ThePaddle extends Rectangle {
         y = y + yVelocity;
     }
     public void draw(Graphics g) {
-        if (id==1)
+        if (id == 1)
         g.setColor(Color.blue); //First Player is Blue
         else
             g.setColor(Color.red); //Second Player is Red

@@ -58,17 +58,45 @@ public class ThePanel extends JPanel implements Runnable{
     public void draw (Graphics g) {
         paddle1.draw(g); //Draw-up Player1 Paddle; Blue
         paddle2.draw(g); //Draw-up Player2 Paddle; Red
+        ball.draw(g); //Draw up Ball
     }
     public void move() {
         // Move Paddle more smoothly across screen
         paddle1.move();
         paddle2.move();
-
+        ball.move();
         // Move Ball more smoothly across screen
-        //ball.move();
     }
     public void checkCollision() {
-        //Stop paddles when touches border of Application on TOP
+
+        // Ball will bounce off of top edge
+        // Ball goes opposite when hitting edges on Top
+        if (ball.y <= 0) {
+            ball.setYDirection(-ball.yVelocity);
+        }
+
+        // Ball will bounce off of bottom edge
+        // Ball goes opposite when hitting edges on Bottom
+        if (ball.y >= GAME_HEIGHT-BALL_DIAMETER) {
+            ball.setYDirection(-ball.yVelocity);
+        }
+
+        // Bounce Ball off Paddles
+        if (ball.intersects(paddle1)) {
+            ball.xVelocity = Math.abs(ball.xVelocity);
+            // Increase Ball Velocity for X-Direction when Ball hits Paddle
+            ball.xVelocity++;
+
+            //Increase Ball Velocity for Y-Direction when Ball hits Paddle
+            if (ball.yVelocity > 0)
+                ball.yVelocity++;
+            else
+                ball.yVelocity--;
+            ball.setXDirection(ball.xVelocity);
+            ball.setYDirection(ball.yVelocity);
+        }
+
+        //Stop paddles when touches edges of Application on TOP
         if (paddle1.y <= 0)
             paddle1.y = 0;
         //Stop paddles when touches border of Application on BOTTOM
