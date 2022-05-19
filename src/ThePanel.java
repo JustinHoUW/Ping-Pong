@@ -38,7 +38,6 @@ public class ThePanel extends JPanel implements Runnable{
 
     }
     public void newBall() {
-        //random = new Random();
         ball = new TheBall((GAME_WIDTH/2) - (BALL_DIAMETER/2), (GAME_HEIGHT/2) - (BALL_DIAMETER/2), BALL_DIAMETER, BALL_DIAMETER);
     }
     public void newPaddles(){
@@ -59,6 +58,7 @@ public class ThePanel extends JPanel implements Runnable{
         paddle1.draw(g); //Draw-up Player1 Paddle; Blue
         paddle2.draw(g); //Draw-up Player2 Paddle; Red
         ball.draw(g); //Draw up Ball
+        score.draw(g);
     }
     public void move() {
         // Move Paddle more smoothly across screen
@@ -81,7 +81,7 @@ public class ThePanel extends JPanel implements Runnable{
             ball.setYDirection(-ball.yVelocity);
         }
 
-        // Bounce Ball off Paddles
+        // Bounce Ball off Paddle1
         if (ball.intersects(paddle1)) {
             ball.xVelocity = Math.abs(ball.xVelocity);
             // Increase Ball Velocity for X-Direction when Ball hits Paddle
@@ -93,6 +93,21 @@ public class ThePanel extends JPanel implements Runnable{
             else
                 ball.yVelocity--;
             ball.setXDirection(ball.xVelocity);
+            ball.setYDirection(ball.yVelocity);
+        }
+
+        // Bounce Ball off Paddle2
+        if (ball.intersects(paddle2)) {
+            ball.xVelocity = Math.abs(ball.xVelocity);
+            // Increase Ball Velocity for X-Direction when Ball hits Paddle
+            ball.xVelocity++;
+
+            //Increase Ball Velocity for Y-Direction when Ball hits Paddle
+            if (ball.yVelocity > 0)
+                ball.yVelocity++;
+            else
+                ball.yVelocity--;
+            ball.setXDirection(-ball.xVelocity);
             ball.setYDirection(ball.yVelocity);
         }
 
@@ -109,6 +124,20 @@ public class ThePanel extends JPanel implements Runnable{
         if (paddle2.y >= (GAME_HEIGHT-PADDLE_HEIGHT))
             paddle2.y = GAME_HEIGHT-PADDLE_HEIGHT;
 
+        //Give player 1 point and creates new ball and paddles
+        if(ball.x <= 0) { //Player 2 Scored touching boundaries
+            score.player2++;
+            newPaddles(); //Reset Paddle when Score
+            newBall(); //Reset Ball when Score
+            System.out.println("Player 2: " + score.player2);
+        }
+
+        if(ball.x >= GAME_WIDTH-BALL_DIAMETER) { //Player 1 Scored touching boundaries
+            score.player1++;
+            newPaddles(); //Reset Paddle when Score
+            newBall(); //Reset Ball when Score
+            System.out.println("Player 1: " + score.player1);
+        }
     }
     public void run() {
         //game loop
