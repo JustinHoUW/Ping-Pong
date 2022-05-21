@@ -1,11 +1,11 @@
 # Ping-Pong - Java
 The classic almighty Ping Pong game written in Java!
 
-ActualGame.java class needs to be run to start the Game
-TheBall.java class creates the ball and controls its movement throughout the screen
-ThePaddle.java class creates the paddles and sets the speed moving in a y-direction. 
-(Also sets up listens for key presses as user uses them to control the paddles)
-TheScore.java class creates the scoreboard of both players, ensuring their score is up to date
+ActualGame.java class needs to be run to start the Game <br />
+TheBall.java class creates the ball and controls its movement throughout the screen <br />
+ThePaddle.java class creates the paddles and sets the speed moving in a y-direction <br />
+(Also sets up listens for key presses as user uses them to control the paddles) <br />
+TheScore.java class creates the scoreboard of both players, ensuring their score is up to date <br />
 
 #### Game Play Snapshot
 ![]
