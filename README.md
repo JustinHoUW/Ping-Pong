@@ -1,5 +1,5 @@
 # Ping-Pong - Java
-The classic Ping Pong game written in Java.
+The classic almighty Ping Pong game written in Java!
 
 ActualGame.java class needs to be run to start the Game
 TheBall.java class creates the ball and controls its movement throughout the screen
